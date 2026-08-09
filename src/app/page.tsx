@@ -1,17 +1,23 @@
 import Hero from "@/components/home/Hero";
-import RewardsSummary from "@/components/home/RewardsSummary";
-import CategoryTiles from "@/components/home/CategoryTiles";
-import WhyRedeem from "@/components/home/WhyRedeem";
-import ComingSoonNote from "@/components/home/ComingSoonNote";
+import Intro from "@/components/home/Intro";
+import OffersRow from "@/components/home/OffersRow";
+import Showcase from "@/components/home/Showcase";
+import AppDownload from "@/components/home/AppDownload";
+import MemberBanner from "@/components/home/MemberBanner";
+import DestinationsColumns from "@/components/home/DestinationsColumns";
+import FAQ from "@/components/home/FAQ";
 
 export default function Home() {
   return (
     <>
       <Hero />
-      <RewardsSummary />
-      <CategoryTiles />
-      <WhyRedeem />
-      <ComingSoonNote />
+      <Intro />
+      <OffersRow />
+      <Showcase />
+      <AppDownload />
+      <MemberBanner />
+      <DestinationsColumns />
+      <FAQ />
     </>
   );
 }
