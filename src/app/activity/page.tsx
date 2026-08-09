@@ -1,20 +1,19 @@
-import PlaceholderPage from "@/components/common/PlaceholderPage";
-import { Activity } from "lucide-react";
+import { Activity as ActivityIcon } from "lucide-react";
+import PageHeader from "@/components/redemption/PageHeader";
+import ActivityList from "./ActivityList";
 
 export const metadata = { title: "Activity · Owner Rewards" };
 
 export default function Page() {
   return (
-    <PlaceholderPage
-      icon={Activity}
-      eyebrow="Activity"
-      title="Your account activity"
-      description="A full history of your point conversions, redemptions and confirmations."
-      bullets={[
-        "Point conversion history",
-        "Redemption receipts",
-        "Downloadable statements",
-      ]}
-    />
+    <>
+      <PageHeader
+        icon={ActivityIcon}
+        eyebrow="Activity"
+        title="Your redemption history"
+        description="A full record of every redemption from your Owner Rewards account."
+      />
+      <ActivityList />
+    </>
   );
 }

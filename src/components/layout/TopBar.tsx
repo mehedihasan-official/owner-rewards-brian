@@ -1,7 +1,12 @@
+"use client";
+
 import Link from "next/link";
 import { Phone, MessageCircle, Globe, BedDouble, User } from "lucide-react";
+import { useRewards } from "@/lib/rewards-store";
+import { num } from "@/lib/rewards";
 
 export default function TopBar() {
+  const { balance } = useRewards();
   return (
     <div className="w-full bg-brand-900 text-white text-xs sm:text-sm">
       <div className="container-page flex h-10 items-center justify-between gap-4">
@@ -42,7 +47,7 @@ export default function TopBar() {
             className="inline-flex items-center gap-1.5 opacity-90 hover:opacity-100"
           >
             <User className="h-3.5 w-3.5" />
-            <span className="hidden md:inline">Hi, Owner · 125,000 pts</span>
+            <span className="hidden md:inline">Hi, Owner · {num(balance)} pts</span>
             <span className="md:hidden">Account</span>
           </Link>
         </div>

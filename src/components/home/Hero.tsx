@@ -4,6 +4,8 @@ import { useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import { ChevronDown, Search } from "lucide-react";
+import { useRewards } from "@/lib/rewards-store";
+import { num } from "@/lib/rewards";
 
 const rewardTypes = [
   "Maintenance credit",
@@ -11,18 +13,28 @@ const rewardTypes = [
   "Visa digital reward",
   "Bank deposit",
 ];
-const amounts = ["$25", "$50", "$100", "$250", "$500"];
+
+const rewardHrefs: Record<string, string> = {
+  "Maintenance credit": "/redeem/maintenance",
+  "Gift cards": "/gift-cards",
+  "Visa digital reward": "/redeem/cash?tab=visa",
+  "Bank deposit": "/redeem/cash?tab=deposit",
+};
 
 export default function Hero() {
+  const { balance } = useRewards();
   const [reward, setReward] = useState(rewardTypes[0]);
-  const [amount, setAmount] = useState(amounts[2]);
+  const [amount, setAmount] = useState("100");
 
   return (
     <section className="relative">
       {/* Booking-widget row (IHG-style) */}
       <div className="bg-brand-900">
         <div className="container-page py-3 sm:py-4">
-          <form className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-[1.4fr_1fr_1fr_auto] gap-2 sm:gap-3">
+          <form
+            action={rewardHrefs[reward] ?? "/"}
+            className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-[1.4fr_1fr_1fr_auto] gap-2 sm:gap-3"
+          >
             <Field label="I want to redeem">
               <select
                 value={reward}
@@ -34,17 +46,24 @@ export default function Hero() {
                 ))}
               </select>
             </Field>
-            <Field label="Value">
-              <select
-                value={amount}
-                onChange={(e) => setAmount(e.target.value)}
-                className="w-full appearance-none bg-transparent text-sm font-semibold text-brand-900 outline-none"
-              >
-                {amounts.map((a) => (
-                  <option key={a}>{a}</option>
-                ))}
-              </select>
-            </Field>
+            <label className="relative flex flex-col justify-center rounded-md bg-white px-3 py-2 min-h-12">
+              <span className="text-[10px] font-semibold uppercase tracking-wider text-ink-500">
+                Value (USD)
+              </span>
+              <div className="flex items-center gap-1">
+                <span className="text-sm font-semibold text-ink-500">$</span>
+                <input
+                  type="number"
+                  inputMode="decimal"
+                  min={0}
+                  step="1"
+                  value={amount}
+                  onChange={(e) => setAmount(e.target.value)}
+                  placeholder="Enter amount"
+                  className="w-full bg-transparent text-sm font-semibold text-brand-900 outline-none [appearance:textfield] [&::-webkit-outer-spin-button]:appearance-none [&::-webkit-inner-spin-button]:appearance-none"
+                />
+              </div>
+            </label>
             <Field label="Preference">
               <select
                 defaultValue="Best value"
@@ -84,7 +103,7 @@ export default function Hero() {
               Owner Rewards
             </div>
             <h1 className="mt-2 text-2xl sm:text-3xl lg:text-4xl font-bold text-brand-900">
-              125,000 points, endless choices.
+              {num(balance)} points, endless choices.
             </h1>
             <p className="mt-3 text-sm sm:text-base text-ink-700">
               Turn your Club Points into maintenance credit, thousands of gift
