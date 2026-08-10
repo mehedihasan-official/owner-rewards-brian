@@ -46,7 +46,7 @@ export default function MemberBanner() {
           </ul>
           <Link
             href="/benefits"
-            className="mt-6 inline-flex h-11 items-center rounded-md bg-accent-500 px-6 text-sm font-bold uppercase tracking-wide text-brand-900 hover:bg-accent-400"
+            className="mt-6 inline-flex h-11 items-center rounded-md bg-accent-500 px-6 text-sm font-bold uppercase tracking-wide text-white hover:bg-accent-600"
           >
             View benefits
           </Link>

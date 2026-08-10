@@ -1,20 +1,19 @@
-import PlaceholderPage from "@/components/common/PlaceholderPage";
 import { BedDouble } from "lucide-react";
+import PageHeader from "@/components/redemption/PageHeader";
+import MyStays from "./MyStays";
 
 export const metadata = { title: "My Stays · Owner Rewards" };
 
 export default function Page() {
   return (
-    <PlaceholderPage
-      icon={BedDouble}
-      eyebrow="My Stays"
-      title="Your upcoming and past stays"
-      description="Manage reservations and view your stay history."
-      bullets={[
-        "Upcoming reservations",
-        "Past stays and receipts",
-        "Modification and cancellation",
-      ]}
-    />
+    <>
+      <PageHeader
+        icon={BedDouble}
+        eyebrow="My stays"
+        title="Your upcoming and past stays"
+        description="Manage reservations, download receipts, and plan your next getaway."
+      />
+      <MyStays />
+    </>
   );
 }

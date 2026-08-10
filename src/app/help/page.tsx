@@ -1,20 +1,19 @@
-import PlaceholderPage from "@/components/common/PlaceholderPage";
 import { HelpCircle } from "lucide-react";
+import PageHeader from "@/components/redemption/PageHeader";
+import HelpCenter from "./HelpCenter";
 
 export const metadata = { title: "Help · Owner Rewards" };
 
 export default function Page() {
   return (
-    <PlaceholderPage
-      icon={HelpCircle}
-      eyebrow="Help Center"
-      title="How can we help?"
-      description="FAQs, guides, and step-by-step walkthroughs of redemption flows."
-      bullets={[
-        "Conversion and redemption FAQs",
-        "Troubleshooting common issues",
-        "Direct link to Owner Services",
-      ]}
-    />
+    <>
+      <PageHeader
+        icon={HelpCircle}
+        eyebrow="Help center"
+        title="How can we help?"
+        description="Search FAQs, browse guides, or connect with Owner Services."
+      />
+      <HelpCenter />
+    </>
   );
 }

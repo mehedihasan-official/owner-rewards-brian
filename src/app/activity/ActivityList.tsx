@@ -78,7 +78,7 @@ export default function ActivityList() {
           </p>
           <Link
             href="/gift-cards"
-            className="mt-4 inline-flex h-10 items-center rounded-md bg-accent-500 px-5 text-sm font-bold uppercase tracking-wide text-brand-900 hover:bg-accent-400"
+            className="mt-4 inline-flex h-10 items-center rounded-md bg-accent-500 px-5 text-sm font-bold uppercase tracking-wide text-white hover:bg-accent-600"
           >
             Start redeeming
           </Link>

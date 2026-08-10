@@ -137,7 +137,7 @@ function VisaForm({ onDone }: { onDone: (a: Activity) => void }) {
       <button
         type="submit"
         disabled={!canSubmit}
-        className="inline-flex h-12 items-center rounded-md bg-accent-500 px-8 text-sm font-bold uppercase tracking-wide text-brand-900 hover:bg-accent-400 disabled:opacity-50 disabled:cursor-not-allowed"
+        className="inline-flex h-12 items-center rounded-md bg-accent-500 px-8 text-sm font-bold uppercase tracking-wide text-white hover:bg-accent-600 disabled:opacity-50 disabled:cursor-not-allowed"
       >
         Send my Visa reward
       </button>
@@ -222,7 +222,7 @@ function DepositForm({ onDone }: { onDone: (a: Activity) => void }) {
       <button
         type="submit"
         disabled={!canSubmit}
-        className="inline-flex h-12 items-center rounded-md bg-accent-500 px-8 text-sm font-bold uppercase tracking-wide text-brand-900 hover:bg-accent-400 disabled:opacity-50 disabled:cursor-not-allowed"
+        className="inline-flex h-12 items-center rounded-md bg-accent-500 px-8 text-sm font-bold uppercase tracking-wide text-white hover:bg-accent-600 disabled:opacity-50 disabled:cursor-not-allowed"
       >
         Submit deposit
       </button>

@@ -33,7 +33,7 @@ export default function Hero() {
         <div className="container-page py-3 sm:py-4">
           <form
             action={rewardHrefs[reward] ?? "/"}
-            className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-[1.4fr_1fr_1fr_auto] gap-2 sm:gap-3"
+            className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-[1.4fr_1fr_1fr_auto] gap-2 sm:gap-3"
           >
             <Field label="I want to redeem">
               <select
@@ -76,7 +76,7 @@ export default function Hero() {
             </Field>
             <button
               type="submit"
-              className="inline-flex h-12 items-center justify-center gap-2 rounded-md bg-accent-500 px-6 text-sm font-bold uppercase tracking-wide text-brand-900 hover:bg-accent-400"
+              className="inline-flex h-12 items-center justify-center gap-2 rounded-md bg-accent-500 px-6 text-sm font-bold uppercase tracking-wide text-white hover:bg-accent-600"
             >
               <Search className="h-4 w-4" />
               Search
@@ -111,7 +111,7 @@ export default function Hero() {
             </p>
             <Link
               href="#offers"
-              className="mt-5 inline-flex h-11 items-center rounded-md bg-accent-500 px-6 text-sm font-bold uppercase tracking-wide text-brand-900 hover:bg-accent-400"
+              className="mt-5 inline-flex h-11 items-center rounded-md bg-accent-500 px-6 text-sm font-bold uppercase tracking-wide text-white hover:bg-accent-600"
             >
               Redeem now
             </Link>

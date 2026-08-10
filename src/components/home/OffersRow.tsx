@@ -73,7 +73,7 @@ export default function OffersRow() {
         <div className="mt-8 text-center">
           <Link
             href="/offers"
-            className="inline-flex h-11 items-center rounded-md bg-accent-500 px-8 text-sm font-bold uppercase tracking-wide text-brand-900 hover:bg-accent-400"
+            className="inline-flex h-11 items-center rounded-md bg-accent-500 px-8 text-sm font-bold uppercase tracking-wide text-white hover:bg-accent-600"
           >
             View all offers
           </Link>

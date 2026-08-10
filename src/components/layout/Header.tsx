@@ -41,7 +41,7 @@ export default function Header() {
         <div className="flex items-center gap-2">
           <Link
             href="/book"
-            className="hidden sm:inline-flex h-10 items-center rounded-md bg-brand-700 px-4 text-sm font-semibold text-white shadow-sm hover:bg-brand-800"
+            className="hidden sm:inline-flex h-10 items-center rounded-md bg-accent-500 px-4 text-sm font-bold uppercase tracking-wide text-white shadow-sm hover:bg-accent-600"
           >
             Book Now
           </Link>
@@ -73,7 +73,7 @@ export default function Header() {
             <Link
               href="/book"
               onClick={() => setOpen(false)}
-              className="mt-2 inline-flex h-11 items-center justify-center rounded-md bg-brand-700 px-4 text-sm font-semibold text-white"
+              className="mt-2 inline-flex h-11 items-center justify-center rounded-md bg-accent-500 px-4 text-sm font-bold uppercase tracking-wide text-white"
             >
               Book Now
             </Link>

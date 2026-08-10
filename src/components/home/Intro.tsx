@@ -17,7 +17,7 @@ export default function Intro() {
       </p>
       <Link
         href="#offers"
-        className="mt-8 inline-flex h-12 items-center rounded-md bg-accent-500 px-8 text-sm font-bold uppercase tracking-wide text-brand-900 hover:bg-accent-400"
+        className="mt-8 inline-flex h-12 items-center rounded-md bg-accent-500 px-8 text-sm font-bold uppercase tracking-wide text-white hover:bg-accent-600"
       >
         Explore now
       </Link>
