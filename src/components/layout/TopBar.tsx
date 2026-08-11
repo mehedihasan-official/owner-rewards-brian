@@ -3,7 +3,12 @@
 import Link from "next/link";
 import { Phone, MessageCircle, Globe, BedDouble, User } from "lucide-react";
 import { useRewards } from "@/lib/rewards-store";
-import { num, OWNER_NAME } from "@/lib/rewards";
+import {
+  num,
+  OWNER_NAME,
+  OWNER_PHONE_DISPLAY,
+  OWNER_PHONE_TEL,
+} from "@/lib/rewards";
 
 export default function TopBar() {
   const { balance } = useRewards();
@@ -12,11 +17,11 @@ export default function TopBar() {
       <div className="container-page flex h-10 items-center justify-between gap-4">
         <div className="flex items-center gap-4">
           <a
-            href="tel:1-800-000-0000"
+            href={`tel:${OWNER_PHONE_TEL}`}
             className="hidden sm:inline-flex items-center gap-1.5 opacity-90 hover:opacity-100"
           >
             <Phone className="h-3.5 w-3.5" />
-            <span>1-800-000-0000</span>
+            <span>{OWNER_PHONE_DISPLAY}</span>
           </a>
           <button
             type="button"

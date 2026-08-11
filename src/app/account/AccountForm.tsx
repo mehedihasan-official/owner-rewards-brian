@@ -2,18 +2,25 @@
 
 import { useState } from "react";
 import { CheckCircle2 } from "lucide-react";
+import {
+  OWNER_CITY,
+  OWNER_EMAIL,
+  OWNER_FIRST_NAME,
+  OWNER_PHONE_DISPLAY,
+  OWNER_STATE,
+} from "@/lib/rewards";
 
 export default function AccountForm() {
   const [saved, setSaved] = useState(false);
   const [profile, setProfile] = useState({
-    firstName: "Brian",
+    firstName: OWNER_FIRST_NAME,
     lastName: "Caceres",
-    email: "brian.caceres@example.com",
-    phone: "555-000-1000",
+    email: OWNER_EMAIL,
+    phone: OWNER_PHONE_DISPLAY,
     address: "123 Palm Drive",
-    city: "Orlando",
-    state: "FL",
-    zip: "32801",
+    city: OWNER_CITY,
+    state: OWNER_STATE,
+    zip: "33101",
   });
   const [prefs, setPrefs] = useState({
     email: true,

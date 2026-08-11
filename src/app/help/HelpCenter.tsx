@@ -9,6 +9,7 @@ import {
   MessageCircle,
   Mail,
 } from "lucide-react";
+import { OWNER_EMAIL, OWNER_PHONE_DISPLAY } from "@/lib/rewards";
 
 type Category = "All" | "Points" | "Redemption" | "Account" | "Billing";
 
@@ -24,7 +25,7 @@ const items: Item[] = [
   { category: "Account", q: "How do I update my profile?", a: "Go to Account from the top-right menu to update your name, email, address, and communication preferences." },
   { category: "Account", q: "How do I link my IHG One Rewards account?", a: "In your Account page, choose 'Linked accounts' and follow the IHG sign-in flow. Linking is required to receive converted IHG points." },
   { category: "Billing", q: "How does maintenance fee credit work?", a: "Redeem points for a credit that's applied automatically to your next annual maintenance invoice. Any unused credit rolls forward." },
-  { category: "Billing", q: "How do I contact Owner Services?", a: "Reach us at 1-800-000-0000, via live chat from the top bar, or through the Contact page." },
+  { category: "Billing", q: "How do I contact Owner Services?", a: `Reach us at ${OWNER_PHONE_DISPLAY}, via live chat from the top bar, or through the Contact page.` },
 ];
 
 const categories: Category[] = ["All", "Points", "Redemption", "Account", "Billing"];
@@ -33,7 +34,7 @@ const supportOptions = [
   {
     icon: Phone,
     title: "Call Owner Services",
-    detail: "1-800-000-0000",
+    detail: OWNER_PHONE_DISPLAY,
     hint: "Mon–Sun · 7am–11pm ET",
   },
   {
@@ -45,7 +46,7 @@ const supportOptions = [
   {
     icon: Mail,
     title: "Email us",
-    detail: "owner-services@example.com",
+    detail: OWNER_EMAIL,
     hint: "Response within 24 hours",
   },
 ];

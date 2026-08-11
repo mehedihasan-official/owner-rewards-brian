@@ -7,7 +7,7 @@ import BalanceCard from "@/components/redemption/BalanceCard";
 import Confirmation from "@/components/redemption/Confirmation";
 import AmountTiles from "@/components/redemption/AmountTiles";
 import { useRewards } from "@/lib/rewards-store";
-import { num, usd, usdToClub } from "@/lib/rewards";
+import { num, OWNER_EMAIL, usd, usdToClub } from "@/lib/rewards";
 import type { GiftCard } from "@/lib/gift-cards";
 import { categoryLabels } from "@/lib/gift-cards";
 import type { Activity } from "@/lib/rewards";
@@ -15,7 +15,7 @@ import type { Activity } from "@/lib/rewards";
 export default function GiftCardDetail({ card }: { card: GiftCard }) {
   const { balance, redeem, ready } = useRewards();
   const [amount, setAmount] = useState(card.amounts[0]);
-  const [email, setEmail] = useState("owner@example.com");
+  const [email, setEmail] = useState(OWNER_EMAIL);
   const [confirmed, setConfirmed] = useState<Activity | null>(null);
 
   const pointsCost = usdToClub(amount);

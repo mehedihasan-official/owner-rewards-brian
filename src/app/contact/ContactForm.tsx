@@ -2,6 +2,12 @@
 
 import { useState } from "react";
 import { CheckCircle2, Mail, Phone, MessageCircle } from "lucide-react";
+import {
+  OWNER_EMAIL,
+  OWNER_NAME,
+  SUPPORT_EMAIL,
+  SUPPORT_PHONE_DISPLAY,
+} from "@/lib/rewards";
 
 const topics = [
   "Points & conversion",
@@ -56,7 +62,7 @@ export default function ContactForm() {
             setDone(false);
             setState({
               name: "",
-              email: "owner@example.com",
+              email: OWNER_EMAIL,
               topic: topics[0],
               message: "",
             });
@@ -89,7 +95,7 @@ export default function ContactForm() {
             required
             value={state.name}
             onChange={(e) => set("name", e.target.value)}
-            placeholder="Brian Caceres"
+            placeholder={OWNER_NAME}
             className="w-full bg-transparent px-3 py-3 text-sm text-brand-900 outline-none"
           />
         </Field>
@@ -161,7 +167,7 @@ export function ContactSidebar() {
     {
       icon: Phone,
       title: "Owner Services",
-      value: "1-800-000-0000",
+      value: SUPPORT_PHONE_DISPLAY,
       hint: "Mon–Sun · 7am–11pm ET",
     },
     {
@@ -173,7 +179,7 @@ export function ContactSidebar() {
     {
       icon: Mail,
       title: "Email",
-      value: "owner-services@example.com",
+      value: SUPPORT_EMAIL,
       hint: "Reply within 24 hours",
     },
   ];

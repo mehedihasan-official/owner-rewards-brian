@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 import { ChevronDown } from "lucide-react";
+import { SUPPORT_PHONE_DISPLAY } from "@/lib/rewards";
 
 const faqs = [
   {
@@ -26,7 +27,7 @@ const faqs = [
   },
   {
     q: "How do I contact Owner Services?",
-    a: "You can reach us by phone at 1-800-000-0000, via live chat in the top bar, or through our Contact page.",
+    a: `You can reach us by phone at ${SUPPORT_PHONE_DISPLAY}, via live chat in the top bar, or through our Contact page.`,
   },
 ];
 

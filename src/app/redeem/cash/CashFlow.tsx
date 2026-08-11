@@ -6,13 +6,21 @@ import { CreditCard, Landmark, Mail } from "lucide-react";
 import PageHeader from "@/components/redemption/PageHeader";
 import BalanceCard from "@/components/redemption/BalanceCard";
 import Confirmation from "@/components/redemption/Confirmation";
-import AmountTiles from "@/components/redemption/AmountTiles";
 import { useRewards } from "@/lib/rewards-store";
-import { num, usd, usdToClub } from "@/lib/rewards";
+import {
+  clubToUsd,
+  num,
+  OWNER_EMAIL,
+  OWNER_NAME,
+  usd,
+  usdToClub,
+} from "@/lib/rewards";
 import type { Activity } from "@/lib/rewards";
 
 type Tab = "visa" | "deposit";
-const AMOUNTS = [25, 50, 100, 250, 500];
+
+const VISA_MIN = 25;
+const DEPOSIT_MIN = 50;
 
 export default function CashFlow() {
   const params = useSearchParams();
@@ -38,9 +46,7 @@ export default function CashFlow() {
         icon={tab === "visa" ? CreditCard : Landmark}
         eyebrow="Redeem · Cash rewards"
         title={
-          tab === "visa"
-            ? "Visa digital reward"
-            : "Direct bank deposit"
+          tab === "visa" ? "Visa digital reward" : "Direct bank deposit"
         }
         description={
           tab === "visa"
@@ -84,22 +90,27 @@ export default function CashFlow() {
 
 function VisaForm({ onDone }: { onDone: (a: Activity) => void }) {
   const { balance, redeem, ready } = useRewards();
-  const [amount, setAmount] = useState(AMOUNTS[2]);
-  const [email, setEmail] = useState("owner@example.com");
-  const points = usdToClub(amount);
-  const canSubmit = ready && points <= balance && !!email;
+  const [amount, setAmount] = useState<number | "">(100);
+  const [email, setEmail] = useState(OWNER_EMAIL);
+
+  const usdAmount = typeof amount === "number" ? amount : 0;
+  const points = usdToClub(usdAmount);
+  const belowMin = usdAmount > 0 && usdAmount < VISA_MIN;
+  const overBalance = points > balance;
+  const canSubmit =
+    ready && usdAmount >= VISA_MIN && !overBalance && !!email.trim();
 
   function submit(e: React.FormEvent) {
     e.preventDefault();
     if (!canSubmit) return;
     const entry = redeem({
       kind: "visa",
-      title: `Visa reward ${usd(amount)}`,
+      title: `Visa reward ${usd(usdAmount)}`,
       detail: `A ${usd(
-        amount
+        usdAmount
       )} virtual Visa card was sent to ${email}. It's usable anywhere Visa is accepted.`,
       pointsSpent: points,
-      usdValue: amount,
+      usdValue: usdAmount,
       status: "Completed",
     });
     if (entry) onDone(entry);
@@ -111,9 +122,17 @@ function VisaForm({ onDone }: { onDone: (a: Activity) => void }) {
         <h2 className="text-sm font-bold uppercase tracking-widest text-ink-500">
           1. Reward amount
         </h2>
-        <div className="mt-3">
-          <AmountTiles amounts={AMOUNTS} value={amount} onChange={setAmount} />
-        </div>
+        <AmountInput
+          value={amount}
+          onChange={setAmount}
+          min={VISA_MIN}
+          balance={balance}
+          helper={`Minimum ${usd(VISA_MIN)}. Your balance covers up to ${usd(
+            clubToUsd(balance)
+          )}.`}
+          belowMin={belowMin}
+          overBalance={overBalance}
+        />
       </section>
 
       <section>
@@ -132,7 +151,7 @@ function VisaForm({ onDone }: { onDone: (a: Activity) => void }) {
         </label>
       </section>
 
-      <Summary points={points} amount={amount} tooLow={points > balance} />
+      <Summary points={points} amount={usdAmount} />
 
       <button
         type="submit"
@@ -147,16 +166,25 @@ function VisaForm({ onDone }: { onDone: (a: Activity) => void }) {
 
 function DepositForm({ onDone }: { onDone: (a: Activity) => void }) {
   const { balance, redeem, ready } = useRewards();
-  const [amount, setAmount] = useState(AMOUNTS[3]);
+  const [amount, setAmount] = useState<number | "">(250);
   const [routing, setRouting] = useState("");
   const [account, setAccount] = useState("");
-  const [name, setName] = useState("");
-  const points = usdToClub(amount);
+  const [name, setName] = useState(OWNER_NAME);
+
+  const usdAmount = typeof amount === "number" ? amount : 0;
+  const points = usdToClub(usdAmount);
+  const belowMin = usdAmount > 0 && usdAmount < DEPOSIT_MIN;
+  const overBalance = points > balance;
 
   const validRouting = /^\d{9}$/.test(routing);
   const validAccount = /^\d{5,17}$/.test(account);
   const canSubmit =
-    ready && points <= balance && validRouting && validAccount && !!name.trim();
+    ready &&
+    usdAmount >= DEPOSIT_MIN &&
+    !overBalance &&
+    validRouting &&
+    validAccount &&
+    !!name.trim();
 
   function submit(e: React.FormEvent) {
     e.preventDefault();
@@ -164,12 +192,12 @@ function DepositForm({ onDone }: { onDone: (a: Activity) => void }) {
     const last4 = account.slice(-4);
     const entry = redeem({
       kind: "deposit",
-      title: `Bank deposit ${usd(amount)}`,
+      title: `Bank deposit ${usd(usdAmount)}`,
       detail: `A deposit of ${usd(
-        amount
+        usdAmount
       )} to the account ending in ${last4} for ${name} was submitted. Deposits typically settle in 3–5 business days.`,
       pointsSpent: points,
-      usdValue: amount,
+      usdValue: usdAmount,
       status: "Processing",
     });
     if (entry) onDone(entry);
@@ -181,9 +209,17 @@ function DepositForm({ onDone }: { onDone: (a: Activity) => void }) {
         <h2 className="text-sm font-bold uppercase tracking-widest text-ink-500">
           1. Deposit amount
         </h2>
-        <div className="mt-3">
-          <AmountTiles amounts={AMOUNTS} value={amount} onChange={setAmount} />
-        </div>
+        <AmountInput
+          value={amount}
+          onChange={setAmount}
+          min={DEPOSIT_MIN}
+          balance={balance}
+          helper={`Minimum ${usd(DEPOSIT_MIN)}. Your balance covers up to ${usd(
+            clubToUsd(balance)
+          )}.`}
+          belowMin={belowMin}
+          overBalance={overBalance}
+        />
       </section>
 
       <section>
@@ -195,7 +231,7 @@ function DepositForm({ onDone }: { onDone: (a: Activity) => void }) {
             label="Account holder name"
             value={name}
             onChange={setName}
-            placeholder="Brian Caceres"
+            placeholder={OWNER_NAME}
             className="sm:col-span-2"
           />
           <TextField
@@ -217,7 +253,7 @@ function DepositForm({ onDone }: { onDone: (a: Activity) => void }) {
         </div>
       </section>
 
-      <Summary points={points} amount={amount} tooLow={points > balance} />
+      <Summary points={points} amount={usdAmount} />
 
       <button
         type="submit"
@@ -227,6 +263,88 @@ function DepositForm({ onDone }: { onDone: (a: Activity) => void }) {
         Submit deposit
       </button>
     </form>
+  );
+}
+
+function AmountInput({
+  value,
+  onChange,
+  min,
+  balance,
+  helper,
+  belowMin,
+  overBalance,
+}: {
+  value: number | "";
+  onChange: (v: number | "") => void;
+  min: number;
+  balance: number;
+  helper: string;
+  belowMin: boolean;
+  overBalance: boolean;
+}) {
+  const points = typeof value === "number" ? usdToClub(value) : 0;
+  const errored = belowMin || overBalance;
+
+  function handleChange(raw: string) {
+    if (raw === "") return onChange("");
+    // Allow only digits and a single decimal point, keep two decimal places.
+    const cleaned = raw.replace(/[^\d.]/g, "");
+    const parts = cleaned.split(".");
+    const normalized =
+      parts.length > 1
+        ? `${parts[0]}.${parts.slice(1).join("").slice(0, 2)}`
+        : parts[0];
+    const n = Number(normalized);
+    if (Number.isNaN(n)) return;
+    onChange(n);
+  }
+
+  return (
+    <div className="mt-3">
+      <div
+        className={`flex items-center rounded-lg border-2 bg-white transition ${
+          errored
+            ? "border-red-400 focus-within:border-red-500"
+            : "border-ink-100 focus-within:border-brand-700"
+        }`}
+      >
+        <span className="pl-4 pr-1 text-2xl font-bold text-ink-500">$</span>
+        <input
+          type="text"
+          inputMode="decimal"
+          autoComplete="off"
+          value={value === "" ? "" : String(value)}
+          onChange={(e) => handleChange(e.target.value)}
+          placeholder="0.00"
+          aria-label="Amount in US dollars"
+          className="w-full bg-transparent py-3 pr-4 text-2xl font-bold text-brand-900 outline-none"
+        />
+        <div className="hidden sm:block border-l border-ink-100 px-4 py-2 text-right">
+          <div className="text-[10px] font-bold uppercase tracking-widest text-ink-500">
+            Points needed
+          </div>
+          <div className="text-sm font-bold text-brand-900">
+            {num(points)} pts
+          </div>
+        </div>
+      </div>
+      <div className="sm:hidden mt-2 text-xs text-ink-500">
+        <b className="text-brand-900">{num(points)}</b> Club Points needed
+      </div>
+      <p className="mt-2 text-xs text-ink-500">{helper}</p>
+      {belowMin && (
+        <p className="mt-2 text-xs font-semibold text-red-600">
+          Enter at least {usd(min)}.
+        </p>
+      )}
+      {overBalance && (
+        <p className="mt-2 text-xs font-semibold text-red-600">
+          That's more than your balance covers — max redeemable is{" "}
+          {usd(clubToUsd(balance))}.
+        </p>
+      )}
+    </div>
   );
 }
 
@@ -264,15 +382,7 @@ function TextField({
   );
 }
 
-function Summary({
-  points,
-  amount,
-  tooLow,
-}: {
-  points: number;
-  amount: number;
-  tooLow: boolean;
-}) {
+function Summary({ points, amount }: { points: number; amount: number }) {
   return (
     <div className="rounded-xl border border-ink-100 bg-ink-50 p-5">
       <div className="flex items-center justify-between">
@@ -285,11 +395,6 @@ function Summary({
         <div className="text-sm text-ink-500">You'll receive</div>
         <div className="text-xl font-bold text-brand-900">{usd(amount)}</div>
       </div>
-      {tooLow && (
-        <div className="mt-3 rounded-md bg-red-50 px-3 py-2 text-xs text-red-700">
-          Not enough points for this amount.
-        </div>
-      )}
     </div>
   );
 }
