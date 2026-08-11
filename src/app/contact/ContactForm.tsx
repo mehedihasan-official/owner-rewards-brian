@@ -89,7 +89,7 @@ export default function ContactForm() {
             required
             value={state.name}
             onChange={(e) => set("name", e.target.value)}
-            placeholder="Jane Owner"
+            placeholder="Brian Caceres"
             className="w-full bg-transparent px-3 py-3 text-sm text-brand-900 outline-none"
           />
         </Field>

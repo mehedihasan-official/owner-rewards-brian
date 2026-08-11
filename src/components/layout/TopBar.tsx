@@ -3,7 +3,7 @@
 import Link from "next/link";
 import { Phone, MessageCircle, Globe, BedDouble, User } from "lucide-react";
 import { useRewards } from "@/lib/rewards-store";
-import { num } from "@/lib/rewards";
+import { num, OWNER_NAME } from "@/lib/rewards";
 
 export default function TopBar() {
   const { balance } = useRewards();
@@ -47,7 +47,7 @@ export default function TopBar() {
             className="inline-flex items-center gap-1.5 opacity-90 hover:opacity-100"
           >
             <User className="h-3.5 w-3.5" />
-            <span className="hidden md:inline">Hi, Owner · {num(balance)} pts</span>
+            <span className="hidden md:inline">Hi, {OWNER_NAME} · {num(balance)} pts</span>
             <span className="md:hidden">Account</span>
           </Link>
         </div>

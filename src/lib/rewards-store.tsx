@@ -9,7 +9,7 @@ import {
 } from "react";
 import { INITIAL_CLUB_POINTS, type Activity } from "./rewards";
 
-const STORAGE_KEY = "owner-rewards-state-v1";
+const STORAGE_KEY = "owner-rewards-state-v2";
 
 type State = {
   balance: number;

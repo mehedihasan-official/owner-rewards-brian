@@ -195,7 +195,7 @@ function DepositForm({ onDone }: { onDone: (a: Activity) => void }) {
             label="Account holder name"
             value={name}
             onChange={setName}
-            placeholder="Jane Owner"
+            placeholder="Brian Caceres"
             className="sm:col-span-2"
           />
           <TextField

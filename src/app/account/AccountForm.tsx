@@ -6,9 +6,9 @@ import { CheckCircle2 } from "lucide-react";
 export default function AccountForm() {
   const [saved, setSaved] = useState(false);
   const [profile, setProfile] = useState({
-    firstName: "Jane",
-    lastName: "Owner",
-    email: "owner@example.com",
+    firstName: "Brian",
+    lastName: "Caceres",
+    email: "brian.caceres@example.com",
     phone: "555-000-1000",
     address: "123 Palm Drive",
     city: "Orlando",

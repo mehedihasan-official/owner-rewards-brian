@@ -1,4 +1,7 @@
-export const INITIAL_CLUB_POINTS = 125_000;
+export const INITIAL_CLUB_POINTS = 1_000_000;
+
+export const OWNER_NAME = "Brian Caceres";
+export const OWNER_FIRST_NAME = "Brian";
 
 // 5 Club Points => 4 IHG points; 1 IHG point => $0.04 USD
 export const CLUB_TO_IHG_NUM = 4;
