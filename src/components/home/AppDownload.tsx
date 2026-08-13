@@ -1,3 +1,4 @@
+import Link from "next/link";
 import { Smartphone, QrCode } from "lucide-react";
 
 export default function AppDownload() {
@@ -30,12 +31,12 @@ export default function AppDownload() {
             Track your points, redeem on the go, and manage your account from
             our mobile app. Available on iOS and Android.
           </p>
-          <button
-            type="button"
+          <Link
+            href="/help"
             className="mt-5 inline-flex h-11 items-center rounded-md bg-accent-500 px-6 text-sm font-bold uppercase tracking-wide text-white hover:bg-accent-600"
           >
-            Download
-          </button>
+            Learn more
+          </Link>
         </div>
 
         <div className="flex flex-col items-center gap-2">

@@ -2,8 +2,7 @@
 
 import { useMemo, useState } from "react";
 import Image from "next/image";
-import Link from "next/link";
-import { CalendarCheck, MapPin, Search, Users } from "lucide-react";
+import { CalendarCheck, CheckCircle2, MapPin, Search, Users } from "lucide-react";
 import { resorts } from "@/lib/destinations";
 import { num } from "@/lib/rewards";
 
@@ -13,6 +12,7 @@ export default function BookingSearch() {
   const [checkOut, setCheckOut] = useState("");
   const [guests, setGuests] = useState(2);
   const [searched, setSearched] = useState(false);
+  const [requested, setRequested] = useState<Set<string>>(new Set());
 
   const results = useMemo(() => {
     if (!searched) return [];
@@ -146,12 +146,23 @@ export default function BookingSearch() {
                       </div>
                       <div className="text-xs text-ink-500">pts / night</div>
                     </div>
-                    <Link
-                      href="#"
-                      className="inline-flex h-11 items-center justify-center rounded-md bg-accent-500 px-5 text-xs font-bold uppercase tracking-wide text-white hover:bg-accent-600"
-                    >
-                      Select
-                    </Link>
+                    {requested.has(r.slug) ? (
+                      <div className="inline-flex h-11 items-center justify-center gap-1 rounded-md bg-emerald-50 px-4 text-xs font-bold uppercase tracking-wide text-emerald-700">
+                        <CheckCircle2 className="h-4 w-4" /> Requested
+                      </div>
+                    ) : (
+                      <button
+                        type="button"
+                        onClick={() =>
+                          setRequested(
+                            (prev) => new Set([...prev, r.slug])
+                          )
+                        }
+                        className="inline-flex h-11 items-center justify-center rounded-md bg-accent-500 px-5 text-xs font-bold uppercase tracking-wide text-white hover:bg-accent-600"
+                      >
+                        Select
+                      </button>
+                    )}
                   </div>
                 </article>
               ))}

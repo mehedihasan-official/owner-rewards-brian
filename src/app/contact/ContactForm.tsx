@@ -22,7 +22,7 @@ export default function ContactForm() {
   const [done, setDone] = useState(false);
   const [state, setState] = useState({
     name: "",
-    email: "owner@example.com",
+    email: OWNER_EMAIL,
     topic: topics[0],
     message: "",
   });
